@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('products', [ProductController::class, 'getProducts']);
+Route::post('product/add', [ProductController::class, 'create']);
+Route::put('product/edit/{id}', [ProductController::class, 'update']);
+Route::delete('product/delete/{id}', [ProductController::class, 'delete']);
+
+Route::post('category/add', [CategoryController::class, 'create']);
+Route::put('category/edit/{id}', [CategoryController::class, 'update']);
+Route::delete('category/delete/{id}', [CategoryController::class, 'delete']);
