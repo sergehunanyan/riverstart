@@ -39,7 +39,10 @@ class ProductService
         $not_deleted = $request->filled('not_deleted') ? (boolean)$request->query('not_deleted') : 0;
         $category_name = 0;
         if($request->filled('category_name')){
-            $category_name = Category::where('name', $request->query('category_name'))->first()->id;
+            $cat = Category::where('name', 'LIKE', "%{$request->query('category_name')}%")->first();
+            if($cat){
+                $category_name = $cat->id;
+            }
         }
 
         return Product::when(!is_null($title), function($query) use ($title){
